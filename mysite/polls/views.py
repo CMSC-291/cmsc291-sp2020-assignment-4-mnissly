@@ -26,7 +26,9 @@ class ResultsView(generic.DetailView):
 
 
 def add_question(request):
-    pass
+    question = get_object_or_404(Question, pk=question_id)
+    question.delete()
+    return HttpResponseRedirect(reverse('polls:add-question'))
 
 
 def vote(request, question_id):
@@ -51,4 +53,4 @@ def vote(request, question_id):
 def remove_question(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
     question.delete()
-    return HttpResponseRedirect(reverse('polls'))
+    return HttpResponseRedirect(reverse('polls:index'))

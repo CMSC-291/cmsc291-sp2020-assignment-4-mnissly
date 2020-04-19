@@ -7,7 +7,7 @@
 {% if latest_question_list %}
     <ul>
     {% for question in latest_question_list %}
-        <li class="nobr"><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}
+        <li><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}
             <form action="{% url 'polls:remove_question' question.id %}">
                 {% csrf_token %}
                 <input type="submit" name="remove" value="Remove"/></form>
