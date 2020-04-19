@@ -1,3 +1,5 @@
+from django.utils import timezone
+
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect
 from django.urls import reverse
@@ -26,9 +28,10 @@ class ResultsView(generic.DetailView):
 
 
 def add_question(request):
-    question = get_object_or_404(Question, pk=question_id)
-    question.delete()
-    return HttpResponseRedirect(reverse('polls:add-question'))
+    new_question = Question(question_text=request.POST['new_question'], pub_date=timezone.now())
+    new_question.save()
+    new_question.id
+    return HttpResponseRedirect(reverse('polls:vote', args=(new_question.id,)))
 
 
 def vote(request, question_id):

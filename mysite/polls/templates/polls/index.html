@@ -20,7 +20,7 @@
 {% endif %}
 <form action="{% url 'polls:add_question' %}" method="post">
     {% csrf_token %}
-    <input type="text" value="" name="new_question"/> <br>
+    <input type="text" name="new_question" id="question_text" value="{{question_text}}"><br>
     <input type="submit" value="Add Question"/>
 </form>
 </div>
