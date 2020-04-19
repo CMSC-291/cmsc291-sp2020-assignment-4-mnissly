@@ -4,3 +4,7 @@ li a {
 body {
     background: white url("images/Background.jpg") no-repeat;
 }
+
+.nobr {
+    white-space: nowrap;
+}

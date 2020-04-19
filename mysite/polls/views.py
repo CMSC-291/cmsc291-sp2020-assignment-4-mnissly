@@ -49,7 +49,6 @@ def vote(request, question_id):
 
 
 def remove_question(request, question_id):
-    pass
-    # question = get_object_or_404(Question, pk=question_id)
-    # question.delete()
-    # return HttpResponseRedirect(reverse('polls'))
+    question = get_object_or_404(Question, pk=question_id)
+    question.delete()
+    return HttpResponseRedirect(reverse('polls'))
