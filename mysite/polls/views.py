@@ -25,6 +25,10 @@ class ResultsView(generic.DetailView):
     template_name = 'polls/results.html'
 
 
+def add_question(request):
+    pass
+
+
 def vote(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
     try:
@@ -45,6 +49,7 @@ def vote(request, question_id):
 
 
 def remove_question(request, question_id):
-    question = get_object_or_404(Question, pk=question_id)
-    question.save()
-    return HttpResponseRedirect(reverse('polls:index'))
+    pass
+    # question = get_object_or_404(Question, pk=question_id)
+    # question.delete()
+    # return HttpResponseRedirect(reverse('polls'))
