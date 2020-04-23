@@ -59,8 +59,8 @@ def remove_question(question_id):
     return HttpResponseRedirect(reverse('polls:index'))
 
 
-def remove_choice(request, question_id):
-    choice = get_object_or_404(Choice, pk=request.POST['choice'])
-    question = get_object_or_404(Question, pk=question_id)
+def remove_choice(choice_id):
+    choice = get_object_or_404(Choice, pk=choice_id)
+    question = choice.question
     choice.delete()
     return HttpResponseRedirect(reverse('polls:details', args=(question.id,)))
