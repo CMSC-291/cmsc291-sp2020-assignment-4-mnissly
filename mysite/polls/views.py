@@ -30,8 +30,14 @@ class ResultsView(generic.DetailView):
 def add_question(request):
     new_question = Question(question_text=request.POST['new_question'], pub_date=timezone.now())
     new_question.save()
-    new_question.id
-    return HttpResponseRedirect(reverse('polls:vote', args=(new_question.id,)))
+    return HttpResponseRedirect(reverse('polls:detail', args=(new_question.id,)))
+
+
+def add_choice(request, question_id):
+    associated_question = get_object_or_404(Question, pk=question_id)
+    new_choice = Choice(choice_text=request.POST['new_choice'], votes=0, question=associated_question)
+    new_choice.save()
+    return HttpResponseRedirect(reverse('polls:detail', args=(question_id,)))
 
 
 def vote(request, question_id):
@@ -53,7 +59,7 @@ def vote(request, question_id):
         return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
 
 
-def remove_question(question_id):
+def remove_question(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
     question.delete()
     return HttpResponseRedirect(reverse('polls:index'))
