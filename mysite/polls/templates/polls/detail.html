@@ -6,12 +6,13 @@
             crossorigin="anonymous"></script>
  <link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}">
 <div class="container-fluid">
+<div class="container-fluid">
 <h1>{{ question.question_text }}</h1>
 </div>
 {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
- <div class="container-fluid">
-     {% if question.choice_set.all %}
-     <div style="float: left">
+{% if question.choice_set.all %}
+<div class="container-fluid">
+     <div style="float: left; margin-right: 5px">
      <form action="{% url 'polls:vote' question.id %}" method="post">
         {% csrf_token %}
         {% for choice in question.choice_set.all %}
@@ -21,16 +22,17 @@
         <input type="submit" value="Vote">
      </form>
      </div>
-     {% endif %}
- <div style="float: left; margin-left: 10px;">
+ <div style="margin-left: 10px;">
  {% for choice in question.choice_set.all %}
-     <form action="{% url 'polls:remove_choice' choice.id %}" style="margin: 1px;" method="post">
+     <form action="{% url 'polls:remove_choice' choice.id %}" style="margin: 1px" method="post">
                 {% csrf_token %}
-                <input type="submit" name="remove" value="Remove"/>
+                <input type="submit" name="remove" value="Remove" style="height: 31px"/>
      </form>
  {% endfor %}
  </div>
  </div>
+ <br><br>
+ {% endif %}
  <div class="container-fluid">
      <form action="{% url 'polls:add_choice' question_id=question.id %}" method="post">
         {% csrf_token %}
@@ -38,3 +40,4 @@
         <input type="submit" value="Add Choice"/>
      </form>
  </div>
+</div>
