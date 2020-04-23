@@ -6,25 +6,24 @@
 <div class="container-fluid">
 <h1>{{ question.question_text }}</h1>
 </div>
-
+<div>
+<div class="col">
 {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
-<div class="row container-fluid">
 <form action="{% url 'polls:vote' question.id %}" method="post">
 {% csrf_token %}
 {% for choice in question.choice_set.all %}
-    <div class="col">
     <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
-    <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label>
-    </div>
+    <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br>
 {% endfor %}
 <input type="submit" value="Vote">
 </form>
 </div>
- <div row>
-     {% for choice in question.choice_set.all %}
-    <form action="{% url 'polls:remove_choice' choice.id %}">
-        {% csrf_token %}
-        <input type="submit" name="remove" value="Remove"/>
-    </form>
-     {% endfor %}
-</div>
+ <div class="col-auto">
+ {% for choice in question.choice_set.all %}
+ <form action="{% url 'polls:remove_choice' choice.id %}">
+     {% csrf_token %}
+     <input type="submit" name="remove" value="Remove"/>
+ </form>
+ {% endfor %}
+ </div>
+ </div>
