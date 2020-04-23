@@ -10,16 +10,18 @@
 </div>
 {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
  <div class="container-fluid">
+     {% if len(question.choice_set.all) ~= 0 %}
      <div style="float: left">
-<form action="{% url 'polls:vote' question.id %}" method="post">
-{% csrf_token %}
-{% for choice in question.choice_set.all %}
-    <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
-    <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br>
-{% endfor %}
-<input type="submit" value="Vote">
-</form>
-</div>
+     <form action="{% url 'polls:vote' question.id %}" method="post">
+        {% csrf_token %}
+        {% for choice in question.choice_set.all %}
+            <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
+            <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br>
+        {% endfor %}
+        <input type="submit" value="Vote">
+     </form>
+     </div>
+     {% endif %}
  <div style="float: left; margin-left: 10px;">
  {% for choice in question.choice_set.all %}
      <form action="{% url 'polls:remove_choice' choice.id %}" style="margin: 1px;" method="post">
@@ -28,4 +30,11 @@
      </form>
  {% endfor %}
  </div>
+     <div class="container-fluid">
+     <form action="{% url 'polls:add_choice' %}" method="post">
+        {% csrf_token %}
+        <input type="text" name="new_choice" id="choice_text" value="{{choice_text}}"><br>
+        <input type="submit" value="Add Choice"/>
+    </form>
+     </div>
  </div>
